@@ -13,12 +13,14 @@ import { Input } from "../ui/input";
 import { v4 as uuidv4 } from "uuid";
 import { useUser } from "@clerk/clerk-react";
 import GlobalApi from "../../../service/GlobalApi";
+import { useNavigate } from "react-router-dom";
 
 function AddResume() {
   const [openDialog, setOpenDialog] = useState(false);
   const [resumeTitle, setResumeTitle] = useState(false);
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
+   const navigate = useNavigate();
 
   let onCreate = async () => {
     setLoading(true);
@@ -33,9 +35,10 @@ function AddResume() {
     };
     await GlobalApi.CreateNewResume(data).then(
       (res) => {
-        console.log(res);
+        console.log(res.data.data.documentId);
         if (res) {
           setLoading(false);
+          navigate(`/dashboard/resume/${res.data.data.documentId}/edit`);
         }
       },
       (err) => {
@@ -46,7 +49,7 @@ function AddResume() {
   };
 
   return (
-    <div className="mt-5">
+    <div className="">
       <div
         className="p-14 border border-dashed flex items-center justify-center h-[280px] rounded-lg cursor-pointer bg-secondary hover:scale-105 transition-all hover:shadow-md"
         onClick={() => setOpenDialog(true)}
