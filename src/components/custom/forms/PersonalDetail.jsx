@@ -22,7 +22,7 @@ function PersonalDetail({ enableNext }) {
     setResumeInfo({ ...resumeInfo, [name]: value });
   };
 
-  //   onsubmit
+  // onsubmit
   let handleSave = (e) => {
     e.preventDefault();
     setLoading(true);
