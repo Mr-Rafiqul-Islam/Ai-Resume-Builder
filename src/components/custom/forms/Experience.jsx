@@ -18,10 +18,15 @@ function Experience() {
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   let handleChange = (e, index) => {
     const { name, value } = e.target;
-    const newEntries = [...experienceList];
+    const newEntries = experienceList.slice();
     newEntries[index][name] = value;
     setExperienceList(newEntries);
     console.log(newEntries);
+  }
+  let onRichTextChange=(e, name, index)=>{
+    const newEntries = experienceList.slice();
+    newEntries[index][name] = e.target.value;
+    setExperienceList(newEntries);
   }
   let AddNewExperience =()=>{
     setExperienceList([...experienceList, formField]);
@@ -29,11 +34,7 @@ function Experience() {
   let RemoveExperience =()=>{
     setExperienceList(experienceList.slice(0, -1));
   }
-  let onRichTextChange=(e, name, index)=>{
-    const newEntries = [...experienceList];
-    newEntries[index][name] = e.target.value;
-    setExperienceList(newEntries);
-  }
+ 
   useEffect(() => {
     setResumeInfo({ ...resumeInfo, experience: experienceList });
   }, [experienceList]);
