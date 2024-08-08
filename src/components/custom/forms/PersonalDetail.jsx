@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import GlobalApi from "../../../../service/GlobalApi";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import SubHeading from "../SubHeading";
 
 function PersonalDetail({ enableNext }) {
   const params = useParams();
@@ -44,8 +45,10 @@ function PersonalDetail({ enableNext }) {
   };
   return (
     <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
-      <h2 className="font-bold text-lg">Personal Detail</h2>
-      <p>Get Started with your personal details</p>
+      {/* <h2 className="font-bold text-lg">Personal Detail</h2>
+      <p>Get Started with your personal details</p> */}
+
+      <SubHeading subTitle="Get Started with your personal details " title="Personal Detail" />
 
       <form onSubmit={handleSave}>
         <div className="grid grid-cols-2 mt-5 gap-3">

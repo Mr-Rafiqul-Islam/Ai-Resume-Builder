@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import GlobalApi from "../../../../service/GlobalApi";
 import { toast } from "sonner";
 import { AiChatSession } from "../../../../service/AiModal";
+import SubHeading from "../SubHeading";
 
 function Summery() {
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
@@ -48,8 +49,7 @@ function Summery() {
   };
   return (
     <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
-      <h2 className="font-bold text-lg">Summery </h2>
-      <p>Add Summery for your Job Title</p>
+      <SubHeading subTitle="Add Summery for your Job Title" title="Summery" />
       <form className="mt-5" onSubmit={onSave}>
         <div className="flex justify-between items-end">
           <label>Add Summery</label>
@@ -80,15 +80,15 @@ function Summery() {
       </form>
 
       {/* for AI */}
-      {aiGenSummeryList.length >0 && (
+      {aiGenSummeryList.length > 0 && (
         <div>
-            <h2 className="font-bold text-lg">Suggestions from AI</h2>
-            {aiGenSummeryList.map((item,i) => (
-                <div key={i} className="my-2">
-                    <h2>Level: {item.Experience_Level} </h2>
-                    <p className="text-xs">{item.Summary}</p>
-                </div>
-            ))}
+          <h2 className="font-bold text-lg">Suggestions from AI</h2>
+          {aiGenSummeryList.map((item, i) => (
+            <div key={i} className="my-2">
+              <h2>Level: {item.Experience_Level} </h2>
+              <p className="text-xs">{item.Summary}</p>
+            </div>
+          ))}
         </div>
       )}
     </div>
