@@ -6,12 +6,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import GlobalApi from "../../../../service/GlobalApi";
 import { toast } from "sonner";
+import { AiChatSession } from "../../../../service/AiModal";
 
 function Summery() {
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const [summery, setSummery] = useState();
   const [loading, setLoading] = useState(false);
   const params = useParams();
+  const [aiGenSummeryList, setAiGenSummeryList] = useState([]);
   useEffect(() => {
     summery && setResumeInfo({ ...resumeInfo, summery: summery });
   }, [summery]);
@@ -33,6 +35,17 @@ function Summery() {
       }
     );
   };
+
+  // for AI prompt
+  const prompt = `just only depends on ${resumeInfo?.jobTitle}(this job title) give me list of summery for 3 experience level, Mid Level and Freasher level in 4-5 lines in array format, With summery and experience_level Field in JSON Format`;
+  let GenerateSummeryFromAi = async () => {
+    setLoading(true);
+    console.log(prompt);
+    const result = await AiChatSession.sendMessage(prompt);
+    console.log(JSON.parse(result.response.text()));
+    setAiGenSummeryList(JSON.parse(result.response.text()));
+    setLoading(false);
+  };
   return (
     <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
       <h2 className="font-bold text-lg">Summery </h2>
@@ -45,8 +58,10 @@ function Summery() {
             type="button"
             variant="outline"
             className="border-primary text-primary flex gap-2 items-center"
+            onClick={GenerateSummeryFromAi}
           >
-            <Brain className="w-4 h-4"/>
+            {loading && <Loader2 className="w-4 h-4 animate-spin" />}
+            <Brain className="w-4 h-4" />
             Generate with AI
           </Button>
         </div>
@@ -63,6 +78,19 @@ function Summery() {
           </Button>
         </div>
       </form>
+
+      {/* for AI */}
+      {aiGenSummeryList.length >0 && (
+        <div>
+            <h2 className="font-bold text-lg">Suggestions from AI</h2>
+            {aiGenSummeryList.map((item,i) => (
+                <div key={i} className="my-2">
+                    <h2>Level: {item.Experience_Level} </h2>
+                    <p className="text-xs">{item.Summary}</p>
+                </div>
+            ))}
+        </div>
+      )}
     </div>
   );
 }

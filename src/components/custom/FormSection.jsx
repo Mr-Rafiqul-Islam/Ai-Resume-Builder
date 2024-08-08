@@ -3,6 +3,7 @@ import PersonalDetail from "./forms/PersonalDetail";
 import { Button } from "../ui/button";
 import { ArrowLeft, ArrowRight, LayoutGrid } from "lucide-react";
 import Summery from "./forms/Summery";
+import Experience from "./forms/Experience";
 
 function FormSection() {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
@@ -28,7 +29,7 @@ function FormSection() {
             className="flex gap-2"
             size="sm"
             onClick={() => setActiveFormIndex(activeFormIndex + 1)}
-            disabled={!enableNext}
+            // disabled={!enableNext}
           >
             {" "}
             Next <ArrowRight />
@@ -40,6 +41,7 @@ function FormSection() {
       {/* summery */}
       {activeFormIndex === 2 && <Summery />}
       {/* work experience*/}
+      {activeFormIndex === 3 && <Experience />}
       {/* Educational detail */}
       {/* Skills */}
     </div>
