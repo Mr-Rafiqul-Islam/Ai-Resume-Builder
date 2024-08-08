@@ -79,7 +79,7 @@ function Summery() {
         </div>
       </form>
 
-      {/* for AI */}
+      {/* for AI suggestions*/}
       {aiGenSummeryList.length > 0 && (
         <div>
           <h2 className="font-bold text-lg">Suggestions from AI</h2>

@@ -45,11 +45,7 @@ function PersonalDetail({ enableNext }) {
   };
   return (
     <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
-      {/* <h2 className="font-bold text-lg">Personal Detail</h2>
-      <p>Get Started with your personal details</p> */}
-
       <SubHeading subTitle="Get Started with your personal details " title="Personal Detail" />
-
       <form onSubmit={handleSave}>
         <div className="grid grid-cols-2 mt-5 gap-3">
           <div>

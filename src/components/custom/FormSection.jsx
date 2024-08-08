@@ -30,7 +30,10 @@ function FormSection() {
           <Button
             className={`flex gap-2 ${activeFormIndex === 5 ? "hidden" : ""}`}
             size="sm"
-            onClick={() => setActiveFormIndex(activeFormIndex + 1)}
+            onClick={() => {
+              setActiveFormIndex(activeFormIndex + 1)
+              // setEnableNext(false)
+            }}
             // disabled={!enableNext}
           >
             {" "}

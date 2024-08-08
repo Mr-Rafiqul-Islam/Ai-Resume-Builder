@@ -4,6 +4,10 @@ import React, { useContext, useEffect, useState } from "react";
 import RichTextEditor from "./RichTextEditor";
 import { ResumeInfoContext } from "@/context/ResumeInfoContext";
 import SubHeading from "../SubHeading";
+import { Loader2 } from "lucide-react";
+import GlobalApi from "../../../../service/GlobalApi";
+import { toast } from "sonner";
+import { useParams } from "react-router-dom";
 const formField = {
   title: "",
   companyName: "",
@@ -15,8 +19,9 @@ const formField = {
 };
 function Experience() {
   const [experienceList, setExperienceList] = useState([formField]);
-  const [enableNext, setEnableNext] = useState(false);
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
+  const [loading, setLoading] = useState(false);
+  const params = useParams();
   let handleChange = (e, index) => {
     const { name, value } = e.target;
     const newEntries = experienceList.slice();
@@ -39,6 +44,24 @@ function Experience() {
   useEffect(() => {
     setResumeInfo({ ...resumeInfo, experience: experienceList });
   }, [experienceList]);
+  const onSave = () => {
+    setLoading(true);
+    const data = {
+      experience: experienceList,
+    };
+    GlobalApi.UpdateResumeDetail(params?.resumeId, data).then(
+      (res) => {
+        console.log(res);
+        setLoading(false);
+        toast("Details updated successfully 🎉");
+      },
+      (err) => {
+        console.log(err);
+        setLoading(false);
+        toast("Server Error 😥 please try again..!")
+      }
+    );
+  }
   return (
     <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
       <SubHeading
@@ -115,7 +138,9 @@ function Experience() {
             - Remove Experience
           </Button>
         </div>
-        <Button>Save</Button>
+        <Button type="submit" disabled={loading} onClick={onSave}>
+            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Save"}
+          </Button>
       </div>
     </div>
   );
