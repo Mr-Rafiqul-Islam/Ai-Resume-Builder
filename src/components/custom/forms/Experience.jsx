@@ -47,7 +47,7 @@ function Experience() {
   const onSave = () => {
     setLoading(true);
     const data = {
-      experience: experienceList,
+      data: { experience: experienceList },
     };
     GlobalApi.UpdateResumeDetail(params?.resumeId, data).then(
       (res) => {
@@ -58,10 +58,10 @@ function Experience() {
       (err) => {
         console.log(err);
         setLoading(false);
-        toast("Server Error 😥 please try again..!")
+        toast("Server Error 😥 please try again..!");
       }
     );
-  }
+  };
   return (
     <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
       <SubHeading
@@ -139,8 +139,8 @@ function Experience() {
           </Button>
         </div>
         <Button type="submit" disabled={loading} onClick={onSave}>
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Save"}
-          </Button>
+          {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Save"}
+        </Button>
       </div>
     </div>
   );

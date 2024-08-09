@@ -41,7 +41,7 @@ function Skills() {
   const onSave = () => {
     setLoading(true);
     const data = {
-      skills: skillsList,
+      data: { skills: skillsList },
     };
     GlobalApi.UpdateResumeDetail(params?.resumeId, data).then(
       (res) => {

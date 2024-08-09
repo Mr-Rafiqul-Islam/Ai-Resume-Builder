@@ -38,7 +38,7 @@ function Summery() {
   };
 
   // for AI prompt
-  const prompt = `just only depends on ${resumeInfo?.jobTitle}(this job title) give me list of summery for 3 experience level, Mid Level and Freasher level in 4-5 lines in array format, With summery and experience_level Field in JSON Format`;
+  const prompt = `just only depends on ${resumeInfo?.jobTitle}(this job title) give me list of summery for 3 experience level, Mid Level and Freasher level in 4-5 lines in array format, With summery and experience_level Field in JSON Format uniquely for everytime`;
   let GenerateSummeryFromAi = async () => {
     setLoading(true);
     console.log(prompt);
@@ -85,8 +85,8 @@ function Summery() {
           <h2 className="font-bold text-lg">Suggestions from AI</h2>
           {aiGenSummeryList.map((item, i) => (
             <div key={i} className="my-2">
-              <h2>Level: {item.Experience_Level} </h2>
-              <p className="text-xs">{item.Summary}</p>
+              <h2>Level: {item.experience_level} </h2>
+              <p className="text-xs">{item.summary}</p>
             </div>
           ))}
         </div>
