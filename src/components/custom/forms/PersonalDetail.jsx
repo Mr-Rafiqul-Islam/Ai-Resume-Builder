@@ -40,6 +40,7 @@ function PersonalDetail({ enableNext }) {
       (err) => {
         console.log(err);
         setLoading(false);
+        toast("Server Error 😥 please try again..!");
       }
     );
   };

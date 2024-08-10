@@ -15,4 +15,11 @@ const GetUserResume = (userEmail) =>
 
 const UpdateResumeDetail = (id, data) =>
   axiosClient.put("/user-resumes/" + id, data);
-export default { CreateNewResume, GetUserResume, UpdateResumeDetail };
+const GetResumeById = (id) =>
+  axiosClient.get("/user-resumes/" + id + "?populate=*");
+export default {
+  CreateNewResume,
+  GetUserResume,
+  UpdateResumeDetail,
+  GetResumeById,
+};

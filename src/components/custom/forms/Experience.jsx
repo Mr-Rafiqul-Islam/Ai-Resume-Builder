@@ -22,6 +22,8 @@ function Experience() {
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const [loading, setLoading] = useState(false);
   const params = useParams();
+
+ 
   let handleChange = (e, index) => {
     const { name, value } = e.target;
     const newEntries = experienceList.slice();
@@ -40,14 +42,16 @@ function Experience() {
   let RemoveExperience = () => {
     setExperienceList(experienceList.slice(0, -1));
   };
-
+  useEffect(() => {
+   resumeInfo && setExperienceList(resumeInfo.experience);
+ },[])
   useEffect(() => {
     setResumeInfo({ ...resumeInfo, experience: experienceList });
   }, [experienceList]);
   const onSave = () => {
     setLoading(true);
     const data = {
-      data: { experience: experienceList },
+      data: { experience: experienceList.map(({id, ...rest})=>rest) },
     };
     GlobalApi.UpdateResumeDetail(params?.resumeId, data).then(
       (res) => {
@@ -74,27 +78,29 @@ function Experience() {
             <div className="grid grid-cols-2 gap-3 my-5 border p-3 rounded-lg">
               <div>
                 <label className="text-xs">Position Title</label>
-                <Input name="title" onChange={(e) => handleChange(e, index)} />
+                <Input name="title" defaultValue={item.title} onChange={(e) => handleChange(e, index)} />
               </div>
               <div>
                 <label className="text-xs">Company Name</label>
                 <Input
                   name="companyName"
+                  defaultValue={item.companyName}
                   onChange={(e) => handleChange(e, index)}
                 />
               </div>
               <div>
                 <label className="text-xs">City</label>
-                <Input name="city" onChange={(e) => handleChange(e, index)} />
+                <Input name="city" defaultValue={item.city} onChange={(e) => handleChange(e, index)} />
               </div>
               <div>
                 <label className="text-xs">State</label>
-                <Input name="state" onChange={(e) => handleChange(e, index)} />
+                <Input name="state" defaultValue={item.state} onChange={(e) => handleChange(e, index)} />
               </div>
               <div>
                 <label className="text-xs">Start Date</label>
                 <Input
                   name="startDate"
+                  defaultValue={item.startDate}
                   type="date"
                   onChange={(e) => handleChange(e, index)}
                 />
@@ -103,6 +109,7 @@ function Experience() {
                 <label className="text-xs">End Date</label>
                 <Input
                   name="endDate"
+                  defaultValue={item.endDate}
                   type="date"
                   onChange={(e) => handleChange(e, index)}
                 />
@@ -111,6 +118,7 @@ function Experience() {
               <div className="col-span-2">
                 <RichTextEditor
                   index={index}
+                  defaultValue={item.workSummery}
                   onRichTextChange={(e) =>
                     onRichTextChange(e, "workSummery", index)
                   }

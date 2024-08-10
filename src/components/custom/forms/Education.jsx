@@ -46,7 +46,9 @@ function Education() {
   let RemoveEducation = () => {
     setEducationList(educationList.slice(0, -1));
   };
-
+  useEffect(() => {
+    resumeInfo && setEducationList(resumeInfo.education);
+  },[])
   useEffect(() => {
     setResumeInfo({ ...resumeInfo, education: educationList });
   }, [educationList]);
@@ -54,7 +56,7 @@ function Education() {
   const onSave = () => {
     setLoading(true);
     const data = {
-      data: { education: educationList },
+      data: { education: educationList.map(({id, ...rest})=>rest) },
     };
     GlobalApi.UpdateResumeDetail(params?.resumeId, data).then(
       (res) => {
@@ -80,22 +82,24 @@ function Education() {
                 <label className="text-xs">University Name</label>
                 <Input
                   name="universityName"
+                  defaultValue={item.universityName}
                   onChange={(e) => handleChange(e, index)}
                 />
               </div>
               <div>
                 <label className="text-xs">Degree</label>
-                <Input name="degree" onChange={(e) => handleChange(e, index)} />
+                <Input name="degree" defaultValue={item.degree} onChange={(e) => handleChange(e, index)} />
               </div>
               <div className="col-span-2">
                 <label className="text-xs">Major</label>
-                <Input name="major" onChange={(e) => handleChange(e, index)} />
+                <Input name="major" defaultValue={item.major} onChange={(e) => handleChange(e, index)} />
               </div>
               <div>
                 <label className="text-xs">Start Date</label>
                 <Input
                   type="date"
                   name="startDate"
+                  defaultValue={item.startDate}
                   onChange={(e) => handleChange(e, index)}
                 />
               </div>
@@ -104,6 +108,7 @@ function Education() {
                 <Input
                   type="date"
                   name="endDate"
+                  defaultValue={item.endDate}
                   onChange={(e) => handleChange(e, index)}
                 />
               </div>
@@ -111,6 +116,7 @@ function Education() {
                 <label className="text-xs">Description</label>
                 <Textarea
                   name="description"
+                  defaultValue={item.description}
                   onChange={(e) => handleChange(e, index)}
                 />
               </div>

@@ -16,7 +16,7 @@ function ExperiencePreview({ resumeInfo }) {
           <h2 className="text-sm font-bold"
           style={{ color: resumeInfo?.themeColor }}>{exp?.title}</h2>
           <h2 className="text-xs flex justify-between">{exp?.companyName}, {exp?.city}, {exp?.state}
-          <span>{exp?.startDate} - {exp?.currentlyWorking ? "Present" : exp?.endDate}</span>
+          <span>{exp?.startDate} to {exp?.currentlyWorking ? "Present" : exp?.endDate}</span>
           </h2>
           <div  className="text-xs my-2" dangerouslySetInnerHTML={{ __html: exp?.workSummery }}/>
         </div>

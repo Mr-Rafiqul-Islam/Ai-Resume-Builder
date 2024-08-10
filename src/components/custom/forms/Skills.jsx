@@ -36,12 +36,15 @@ function Skills() {
   };
 
   useEffect(() => {
+    resumeInfo && setSkillsList(resumeInfo.skills);
+  }, [])
+  useEffect(() => {
     setResumeInfo({ ...resumeInfo, skills: skillsList });
   }, [skillsList]);
   const onSave = () => {
     setLoading(true);
     const data = {
-      data: { skills: skillsList },
+      data: { skills: skillsList.map(({ id, ...rest }) => rest) },
     };
     GlobalApi.UpdateResumeDetail(params?.resumeId, data).then(
       (res) => {
@@ -70,6 +73,7 @@ function Skills() {
                 <label className="text-xs">Name</label>
                 <Input
                   name="name"
+                  defaultValue={item.name}
                   onChange={(e) => handleChange(index, "name", e.target.value)}
                 />
               </div>
@@ -78,7 +82,6 @@ function Skills() {
                 <Rating
                   style={{ maxWidth: 150 }}
                   value={item.rating}
-                  halfFillMode="box"
                   onChange={(value) => handleChange(index, "rating", value)}
                 />
               </div>
