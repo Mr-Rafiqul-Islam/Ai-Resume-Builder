@@ -21,6 +21,9 @@ function Dashboard() {
       (res) => {
         setResumeList(res.data.data);
         setLoading(false);
+      },(err) => {
+        console.log(err);
+        setLoading(false);
       }
     );
   };
@@ -37,7 +40,7 @@ function Dashboard() {
           </div>
         ) : (
           resumeList?.map((resume, index) => (
-            <ResumeItem key={index} resume={resume} />
+            <ResumeItem key={index} resume={resume} refreshData={GetResumesList}/>
           ))
         )}
       </div>
